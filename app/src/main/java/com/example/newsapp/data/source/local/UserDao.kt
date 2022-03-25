@@ -1,4 +1,4 @@
-package com.example.newsapp
+package com.example.newsapp.data.source.local
 
 import androidx.room.Dao
 

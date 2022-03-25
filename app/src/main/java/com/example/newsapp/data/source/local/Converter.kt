@@ -1,6 +1,7 @@
-package com.example.newsapp
+package com.example.newsapp.data.source.local
 
 import androidx.room.TypeConverter
+import com.example.newsapp.data.entites.Article
 import com.google.gson.Gson
 
 class Converter {

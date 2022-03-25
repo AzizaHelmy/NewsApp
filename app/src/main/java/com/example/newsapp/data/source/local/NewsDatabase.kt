@@ -1,10 +1,12 @@
-package com.example.newsapp
+package com.example.newsapp.data.source.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.newsapp.data.entites.NewsModel
+import com.example.newsapp.data.entites.User
 
 @Database(entities = [NewsModel::class, User::class], version = 1, exportSchema = false)
 @TypeConverters(Converter::class)
@@ -18,7 +20,7 @@ abstract class NewsDatabase : RoomDatabase() {
             return Room.databaseBuilder(
                 context.applicationContext,
                 NewsDatabase::class.java,
-                "weather"
+                "News.db"
             ).build()
         }
     }
