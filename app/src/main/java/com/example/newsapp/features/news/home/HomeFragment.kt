@@ -47,19 +47,15 @@ class HomeFragment : Fragment(), NewsOnClickListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.insert()
-        viewModel.getNews().observe(viewLifecycleOwner, { cashedData->
-                cashedViews=cashedData
-                setUpRecyclerView()
-            Log.e("TAG","news $cashedViews")
-        })
-//        viewModel.liveData.observe(viewLifecycleOwner){ cashedData->
-//            cashedData?.let {
-//                cashedViews=it
-//                setUpRecyclerView()
-//            }
-//
-//            Log.e("TAG","news $cashedViews")
-//        }
+        viewModel.getNews().observe(viewLifecycleOwner) { cashedData ->
+            cashedViews = cashedData
+//            binding.shimmerLayout.visibility=View.VISIBLE
+//            binding.rvNews.visibility=View.GONE
+//            binding.shimmerLayout.startShimmer()
+            setUpRecyclerView()
+            Log.e("TAG", "news $cashedViews")
+        }
+
         viewModel.stateLiveData.observe(viewLifecycleOwner) { state ->
             //renderState(state)
         }

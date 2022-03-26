@@ -1,7 +1,8 @@
 package com.example.newsapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -24,7 +25,14 @@ class NewsActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.bottomNav, navController)
 
-
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            if (destination.id == R.id.detailsFragment
+            ) {
+                binding.bottomNav.visibility = View.GONE
+            } else {
+                binding.bottomNav.visibility = View.VISIBLE
+            }
+        }
 
 
     }
