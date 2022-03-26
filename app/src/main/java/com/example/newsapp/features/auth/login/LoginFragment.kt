@@ -1,60 +1,108 @@
 package com.example.newsapp.features.auth.login
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.ActionOnlyNavDirections
+import androidx.navigation.fragment.findNavController
+import com.example.newsapp.NewsActivity
 import com.example.newsapp.R
+import com.example.newsapp.data.repo.user.UserRepositoryImp.Companion.getUserRepository
+import com.example.newsapp.databinding.FragmentLoginBinding
+import com.example.newsapp.features.auth.AuthModelFactory
+import com.example.newsapp.features.auth.AuthViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [LoginFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class LoginFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var viewModel: AuthViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    lateinit var loginBtn: Button
+    lateinit var userNameEdt: EditText
+    lateinit var passwordEdt: EditText
+    lateinit var gotoRegisterTxt: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+        userNameEdt = binding.loginEditUserName
+        passwordEdt = binding.loginEditPassword
+        loginBtn = binding.loginButtonLogin
+        gotoRegisterTxt = binding.loginTextCreateNewAccount
+
+        viewModel = ViewModelProvider(
+            this, AuthModelFactory(
+                getUserRepository(app = requireActivity().application)
+            )
+        ).get(AuthViewModel::class.java)
+
+
+        gotoRegisterTxt.setOnClickListener {
+            findNavController().navigate(ActionOnlyNavDirections(R.id.action_loginFragment_to_registerFragment)) //for test purposal only
+        }
+
+        loginBtn.setOnClickListener {
+            //check if there are strings or not
+            if (userNameEdt.text.toString().trim().isNullOrEmpty() || passwordEdt.text.toString()
+                    .trim().isNullOrEmpty()
+            ) {
+                Toast.makeText(context, getString(R.string.try_again), Toast.LENGTH_LONG).show()
+                loginBtn.visibility = View.VISIBLE
+            } else
+                viewModel.getUserByEmail(email = userNameEdt.text.toString().trim())
+                    ?.observe(this@LoginFragment.viewLifecycleOwner, androidx.lifecycle.Observer
+                    {
+                        if (it != null) {
+
+                            if (it.isNullOrEmpty()) {
+                                Toast.makeText(
+                                    context,
+                                    getString(R.string.try_again),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                loginBtn.visibility = View.VISIBLE
+                            } else {
+                                if (it[0].password == passwordEdt.text.toString()) {
+                                    //here password = list password so let him in the app
+                                    var intent = Intent(context, NewsActivity::class.java)
+                                    startActivity(intent)
+                                } else {
+                                    Toast.makeText(
+                                        context,
+                                        getString(R.string.wrong_password),
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                    loginBtn.visibility = View.VISIBLE
+
+                                }
+
+                            }
+                        } else {
+                            Toast.makeText(
+                                context,
+                                getString(R.string.try_again),
+                                Toast.LENGTH_LONG
+                            ).show()
+                            loginBtn.visibility = View.VISIBLE
+                        }
+
+
+                    })
+        }
+
+
+        return root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LoginFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LoginFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }
