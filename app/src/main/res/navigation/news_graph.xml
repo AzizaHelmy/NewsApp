@@ -28,7 +28,7 @@
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.newsapp.features.news.details.DetailsFragment"
+        android:name="com.example.newsapp.features.news.details.view.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" >
         <argument
