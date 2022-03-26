@@ -1,4 +1,4 @@
-package com.example.newsapp.data.source.local
+package com.example.newsapp.utils
 
 import androidx.room.TypeConverter
 import com.example.newsapp.data.entites.Article

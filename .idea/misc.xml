@@ -3,15 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/sours/ITI_Android/NewsApp/app/src/main/res/drawable/search_background.xml" value="0.175" />
         <entry key="..\:/sours/ITI_Android/NewsApp/app/src/main/res/layout/activity_auth.xml" value="0.19010416666666666" />
-        <entry key="..\:/ITI/kotlin/newsApp/NewsApp/app/src/main/res/layout/fragment_home.xml" value="0.2115036231884058" />
         <entry key="..\:/sours/ITI_Android/NewsApp/app/src/main/res/layout/activity_main.xml" value="0.19010416666666666" />
+        <entry key="..\:/sours/ITI_Android/NewsApp/app/src/main/res/layout/activity_news.xml" value="0.20416666666666666" />
         <entry key="..\:/sours/ITI_Android/NewsApp/app/src/main/res/layout/fragment_details.xml" value="0.1" />
         <entry key="..\:/sours/ITI_Android/NewsApp/app/src/main/res/layout/fragment_favorits.xml" value="0.20416666666666666" />
         <entry key="..\:/sours/ITI_Android/NewsApp/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
         <entry key="..\:/sours/ITI_Android/NewsApp/app/src/main/res/layout/fragment_login.xml" value="0.20416666666666666" />
         <entry key="..\:/sours/ITI_Android/NewsApp/app/src/main/res/layout/fragment_register.xml" value="0.20416666666666666" />
         <entry key="..\:/sours/ITI_Android/NewsApp/app/src/main/res/layout/fragment_settings.xml" value="0.20416666666666666" />
+        <entry key="..\:/sours/ITI_Android/NewsApp/app/src/main/res/layout/news_item.xml" value="0.22" />
+        <entry key="..\:/sours/ITI_Android/NewsApp/app/src/main/res/layout/shimmer_placeholder_layout.xml" value="0.19010416666666666" />
         <entry key="..\:/sours/ITI_Android/NewsApp/app/src/main/res/menu/nav_menu.xml" value="0.1675213675213675" />
       </map>
     </option>
