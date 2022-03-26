@@ -1,9 +1,8 @@
 package com.example.newsapp.features.news.home
 
-import com.example.newsapp.data.entites.Article
-import com.example.newsapp.data.entites.NewsModel
+import com.example.newsapp.data.entites.CashedNews
 
 interface NewsOnClickListener {
-    fun onFavClicked(favNew: Article)
-    fun onItemClicked(item: Article)
+    fun onFavClicked(favNew: CashedNews)
+    fun onItemClicked(item: CashedNews)
 }

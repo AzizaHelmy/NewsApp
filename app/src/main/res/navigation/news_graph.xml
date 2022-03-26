@@ -33,6 +33,6 @@
         tools:layout="@layout/fragment_details" >
         <argument
             android:name="CurrentNew"
-            app:argType="com.example.newsapp.data.entites.Article" />
+            app:argType="com.example.newsapp.data.entites.CashedNews" />
     </fragment>
 </navigation>

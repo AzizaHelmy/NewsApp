@@ -4,12 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.newsapp.R
-import com.example.newsapp.data.entites.Article
-import com.example.newsapp.data.entites.NewsModel
+import com.example.newsapp.data.entites.CashedNews
 import com.example.newsapp.databinding.NewsItemBinding
 
-class NewsAdapter(val news: List<Article>, val context: Context,var newsOnClickListener: NewsOnClickListener) :
+class NewsAdapter(val cashedViews: List<CashedNews>, val context: Context, var newsOnClickListener: NewsOnClickListener) :
     RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
 
@@ -24,8 +24,11 @@ class NewsAdapter(val news: List<Article>, val context: Context,var newsOnClickL
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        val model = news[position]
-        holder.binding.ivNewsImg.setImageResource(model.urlToImage.toInt())
+        val model = cashedViews[position]
+
+        Glide.with(context).load(model.urlToImage)
+            .placeholder(R.drawable.img)
+            .into(holder.binding.ivNewsImg)
         holder.binding.tvTitle.text=model.title
         holder.binding.tvTime.text=model.publishedAt
         holder.binding.ivFav.setImageResource(R.drawable.ic_favorite_border)
@@ -37,7 +40,7 @@ class NewsAdapter(val news: List<Article>, val context: Context,var newsOnClickL
     }
 
     override fun getItemCount(): Int {
-        return news.size
+        return cashedViews.size
     }
 
     class NewsViewHolder(val binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root) {

@@ -23,7 +23,7 @@ val args by navArgs<DetailsFragmentArgs>()
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-       // args.currentNew.articles[0].author
+      // binding.title.text= args.currentNew.articles[0].author
         return inflater.inflate(R.layout.fragment_details, container, false)
     }
 

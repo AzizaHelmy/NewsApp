@@ -1,11 +1,13 @@
 package com.example.newsapp.data.source.local
 
 import androidx.lifecycle.LiveData
-import com.example.newsapp.data.entites.NewsModel
+import androidx.lifecycle.MutableLiveData
+import com.example.newsapp.data.entites.CashedNews
 
 interface ConcretLocalSource {
-    fun insertNew(new: NewsModel)
-    fun getAllNews(): LiveData<List<NewsModel>>
-    fun insertFav(new: NewsModel)
-    fun removeFav(new: NewsModel)
+   suspend fun insertNew(aNew: CashedNews)
+     fun getAllNews(): LiveData<List<CashedNews>>
+    fun insertFav(aNew: CashedNews)
+    fun removeFav(aNew: CashedNews)
+    fun getFav(): LiveData<List<CashedNews>>
 }

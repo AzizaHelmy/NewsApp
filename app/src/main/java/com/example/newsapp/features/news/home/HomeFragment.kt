@@ -1,6 +1,7 @@
 package com.example.newsapp.features.news.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.data.HomeState
-import com.example.newsapp.data.entites.Article
+import com.example.newsapp.data.entites.CashedNews
 import com.example.newsapp.data.repo.news.NewsRepositoryImp
 import com.example.newsapp.data.source.local.LocalSourceImp
 import com.example.newsapp.data.source.remote.RemoteSourceImp
@@ -18,12 +19,11 @@ import com.example.newsapp.databinding.FragmentHomeBinding
 import com.example.newsapp.features.news.NewsViewModel
 import com.example.newsapp.features.news.NewsViewModelFactory
 
+class HomeFragment : Fragment(), NewsOnClickListener{
 
-class HomeFragment : Fragment(), NewsOnClickListener {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var newsAdapter: NewsAdapter
-    private lateinit var news: List<Article>
-
+    private var cashedViews: List<CashedNews> = listOf()
 
     private val viewModel: NewsViewModel by viewModels<NewsViewModel>() {
         val remote: RemoteSourceImp = RemoteSourceImp()
@@ -46,12 +46,22 @@ class HomeFragment : Fragment(), NewsOnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getNews()
-        viewModel.liveData.observe(viewLifecycleOwner){
-            news=it.articles
-        }
+        viewModel.insert()
+        viewModel.getNews().observe(viewLifecycleOwner, { cashedData->
+                cashedViews=cashedData
+                setUpRecyclerView()
+            Log.e("TAG","news $cashedViews")
+        })
+//        viewModel.liveData.observe(viewLifecycleOwner){ cashedData->
+//            cashedData?.let {
+//                cashedViews=it
+//                setUpRecyclerView()
+//            }
+//
+//            Log.e("TAG","news $cashedViews")
+//        }
         viewModel.stateLiveData.observe(viewLifecycleOwner) { state ->
-            renderState(state)
+            //renderState(state)
         }
         binding.searchView.setOnClickListener {
 
@@ -60,18 +70,18 @@ class HomeFragment : Fragment(), NewsOnClickListener {
 
     override fun onResume() {
         super.onResume()
-       // binding.shimmerFrameLayout.startShimmer()
+        //binding.shimmerFrameLayout.startShimmer()
     }
 
     override fun onPause() {
         super.onPause()
-        //binding.shimmerFrameLayout.stopShimmer()
+       // binding.shimmerFrameLayout.stopShimmer()
     }
     private fun setUpRecyclerView() {
         val layoutManager = LinearLayoutManager(requireContext())
-        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.rvNews.layoutManager = layoutManager
-        newsAdapter = NewsAdapter(news, requireContext(),this)
+        newsAdapter = NewsAdapter(cashedViews, requireContext(),this)
         binding.rvNews.adapter = newsAdapter
 
         binding.rvNews.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -88,7 +98,7 @@ class HomeFragment : Fragment(), NewsOnClickListener {
         })
     }
 
-    override fun onFavClicked(favNew: Article) {
+    override fun onFavClicked(favNew: CashedNews) {
         //cheak and change img
       // viewModel.insertFav(favNew)
 
@@ -96,7 +106,7 @@ class HomeFragment : Fragment(), NewsOnClickListener {
 
     }
 
-    override fun onItemClicked(item: Article) {
+    override fun onItemClicked(item: CashedNews) {
         //save args
         val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(item)
         findNavController().navigate(action)
@@ -113,18 +123,18 @@ class HomeFragment : Fragment(), NewsOnClickListener {
 
     private fun showError(errorMessage: String) {
        //handel error state
-       // binding.shimmerFrameLayout.visibility=View.GONE
+        //binding.shimmerFrameLayout.visibility=View.GONE
     }
 
     private fun showLoading() {
         binding.loadingPb.visibility=View.VISIBLE
-       // binding.shimmerFrameLayout.visibility=View.GONE
+      // binding.shimmerFrameLayout.visibility=View.GONE
         binding.rvNews.visibility=View.GONE
     }
 
     private fun showSuccess(state: HomeState.Success) {
         binding!!.loadingPb.visibility=View.GONE
-        //binding!!.shimmerFrameLayout.visibility=View.GONE
+       // binding!!.shimmerFrameLayout.visibility=View.GONE
         setUpRecyclerView()
     }
 

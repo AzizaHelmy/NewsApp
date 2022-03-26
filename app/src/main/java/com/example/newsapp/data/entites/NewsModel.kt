@@ -8,12 +8,13 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
-@Entity(tableName = "News")
 //@Parcelize
 data class NewsModel(
-    val isFav: Boolean = false,
-    val articles: List<Article>,
-    @PrimaryKey
-    val status: String,
+    val articles: List<Article>?=null,
+    val status: String?=null,
     val totalResults: Int
-):Serializable
+):Serializable{
+    companion object{
+        fun toCashedNewsList() = emptyList<Article>()
+    }
+}
