@@ -39,14 +39,14 @@ class FavoritsFragment : Fragment() {
 
         CoroutineScope(Dispatchers.IO).launch {
              //  newsList = favoriteViewModel.getCitysFromDB()
-               favoriteAdapter.notifyDataSetChanged()
+             //  favoriteAdapter.notifyDataSetChanged()
         }
-        favoriteAdapter = FavoriteAdapter(newsList, requireContext())
-        val linearLayoutManager = LinearLayoutManager(requireContext())
-        linearLayoutManager.orientation = RecyclerView.VERTICAL
-        recyclerView = binding.favRecyclerView
-
-        recyclerView.layoutManager = linearLayoutManager
+//        favoriteAdapter = FavoriteAdapter(newsList, requireContext())
+//        val linearLayoutManager = LinearLayoutManager(requireContext())
+//        linearLayoutManager.orientation = RecyclerView.VERTICAL
+//        recyclerView = binding.favRecyclerView
+//
+//        recyclerView.layoutManager = linearLayoutManager
 
 
         return binding.root

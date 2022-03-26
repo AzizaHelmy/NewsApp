@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_fav"
+        android:id="@+id/card_fav2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="7dp"
@@ -22,7 +22,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/iv_news_img"
+                android:id="@+id/iv_news_img2"
                 android:layout_width="match_parent"
                 android:layout_height="142dp"
                 android:layout_margin="7dp"
@@ -33,7 +33,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/iv_fav"
+                android:id="@+id/iv_fav2"
                 android:layout_width="64dp"
                 android:layout_height="41dp"
                 android:layout_margin="13dp"
@@ -52,23 +52,23 @@
                 android:fontFamily="serif"
                 android:lines="1"
                 android:textSize="21sp"
-                app:layout_constraintEnd_toStartOf="@+id/iv_fav"
+                app:layout_constraintEnd_toStartOf="@+id/iv_fav2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_news_img" />
+                app:layout_constraintTop_toBottomOf="@id/iv_news_img2" />
 
             <TextView
-                android:id="@+id/tv_time"
+                android:id="@+id/tv_time2"
                 android:layout_width="125dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="7dp"
                android:background="@color/shimmer"
                 android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_published"
-                app:layout_constraintStart_toEndOf="@id/tv_published"
-                app:layout_constraintTop_toTopOf="@id/tv_published" />
+                app:layout_constraintBottom_toBottomOf="@id/tv_published2"
+                app:layout_constraintStart_toEndOf="@id/tv_published2"
+                app:layout_constraintTop_toTopOf="@id/tv_published2" />
 
             <TextView
-                android:id="@+id/tv_published"
+                android:id="@+id/tv_published2"
                 android:layout_width="125dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="3dp"

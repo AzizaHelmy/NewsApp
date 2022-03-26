@@ -24,10 +24,10 @@ class FavoriteAdapter(var newsList: List<NewsModel>, var context: Context): Recy
 
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
         val model = newsList[position]
-        Glide.with(context!!).load(model.articles[0].urlToImage).into(holder.binding.newsImg)
-        holder.binding.title.text=model.articles[0].title
-        holder.binding.time.text=model.articles[0].publishedAt
-        holder.binding.fav.setImageResource(R.drawable.ic_favorite)
+//        Glide.with(context!!).load(model.articles[0].urlToImage).into(holder.binding.newsImg)
+//        holder.binding.title.text=model.articles[0].title
+//        holder.binding.time.text=model.articles[0].publishedAt
+//        holder.binding.fav.setImageResource(R.drawable.ic_favorite)
     }
 
     override fun getItemCount(): Int {

@@ -35,7 +35,9 @@ class NewsAdapter(val cashedViews: List<CashedNews>, val context: Context, var n
         holder.binding.ivFav.setOnClickListener {
             newsOnClickListener.onFavClicked(model)
             holder.binding.ivFav.setImageResource(R.drawable.ic_favorite)
-
+        }
+        holder.itemView.setOnClickListener {
+           newsOnClickListener.onItemClicked(model)
         }
     }
 
