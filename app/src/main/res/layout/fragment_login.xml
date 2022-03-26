@@ -3,46 +3,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context=".features.auth.login.LoginFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:weightSum="3">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_name"/>
-
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:text="@string/user_name" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:id="@+id/login_edit_userName"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/user_name"/>
+            android:layout_weight="2"
+            android:hint="@string/user_name"
+            android:maxLength="32"
+            android:textColorHint="#757575"
+            tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:weightSum="3">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/password"/>
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:text="@string/password" />
 
 
         <EditText
-            android:layout_width="wrap_content"
+            android:id="@+id/login_edit_password"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/password"/>
+            android:layout_weight="2"
+            android:hint="@string/password"
+            android:maxLength="32"
+            android:minHeight="48dp" />
     </LinearLayout>
 
     <Button
+        android:id="@+id/login_button_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="64dp"
         android:text="@string/login">
 
     </Button>
@@ -50,14 +68,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="32dp"
         android:text="@string/or">
 
     </TextView>
 
     <TextView
+        android:id="@+id/login_text_createNewAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/create_new_account">
+        android:text="@string/create_new_account"
+        android:textColor="@color/blue">
 
     </TextView>
 

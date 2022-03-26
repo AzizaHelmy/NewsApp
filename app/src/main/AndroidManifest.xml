@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NewsApp">
         <activity
-            android:name=".features.auth.AuthActivity"
-            android:exported="false" />
-        <activity
             android:name=".NewsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".features.auth.AuthActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
