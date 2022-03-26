@@ -1,60 +1,119 @@
 package com.example.newsapp.features.auth.register
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.ActionOnlyNavDirections
+import androidx.navigation.fragment.findNavController
 import com.example.newsapp.R
+import com.example.newsapp.data.entites.User
+import com.example.newsapp.data.repo.user.UserRepositoryImp
+import com.example.newsapp.databinding.FragmentRegisterBinding
+import com.example.newsapp.features.auth.AuthModelFactory
+import com.example.newsapp.features.auth.AuthViewModel
+import java.util.regex.Pattern
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [RegisterFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class RegisterFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var _binding: FragmentRegisterBinding
+    private val binding get() = _binding
+    private lateinit var viewModel: AuthViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    val EMAIL_ADDRESS_PATTERN = Pattern.compile(
+        "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                "\\@" +
+                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                "(" +
+                "\\." +
+                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                ")+"
+    )
+
+    lateinit var userNameEdt: EditText
+    lateinit var passWordEdt: EditText
+    lateinit var passConfirmEdt: EditText
+    lateinit var emailEdt: EditText
+    lateinit var phoneEdt: EditText
+    lateinit var registerBtn: Button
+    lateinit var gotoLoginTxt: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false)
+    ): View {
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+        viewModel = ViewModelProvider(
+            this, AuthModelFactory(
+                UserRepositoryImp.getUserRepository(app = requireActivity().application)
+            )
+        ).get(AuthViewModel::class.java)
+
+        userNameEdt = binding.registerEditUserName
+        passWordEdt = binding.registerEditPassword
+        passConfirmEdt = binding.registerEditPasswordConfirm
+        emailEdt = binding.registerEditEmail
+        phoneEdt = binding.registerEditPhone
+        registerBtn = binding.registerButtonRegister
+        gotoLoginTxt = binding.registerTextLogin
+
+        gotoLoginTxt.setOnClickListener {
+            findNavController().navigate(ActionOnlyNavDirections(R.id.action_registerFragment_to_loginFragment)) //for test purposal only
+        }
+
+        registerBtn.setOnClickListener {
+            var registeration :User;
+
+            if(userNameEdt.text.toString().trim().isNullOrEmpty() || passWordEdt.text.toString().trim().isNullOrEmpty() || passConfirmEdt.text.toString().trim().isNullOrEmpty()|| emailEdt.text.toString().trim().isNullOrEmpty()|| phoneEdt.text.toString().trim().isNullOrEmpty() )
+            { Toast.makeText(
+                context,
+                getString(R.string.try_again),
+                Toast.LENGTH_LONG
+            ).show()
+                registerBtn.visibility = View.VISIBLE
+            }
+            else if ( passWordEdt.text.toString().trim() != passConfirmEdt.text.toString().trim())
+            {
+                Toast.makeText(
+                    context,
+                    getString(R.string.try_again),
+                    Toast.LENGTH_LONG
+                ).show()
+                registerBtn.visibility = View.VISIBLE
+            }
+            else if (!isValidString(emailEdt.text.toString().trim()))
+            {
+                Toast.makeText(
+                    context,
+                    getString(R.string.wrong_email),
+                    Toast.LENGTH_LONG
+                ).show()
+                registerBtn.visibility = View.VISIBLE
+            }
+            else{
+            viewModel.insertUser(User(userNameEdt.text.toString().trim(), passWordEdt.text.toString().trim(),emailEdt.text.toString().trim(),phoneEdt.text.toString().trim()))
+
+                Toast.makeText(
+                    context,
+                    getString(R.string.registered_successfully),
+                    Toast.LENGTH_LONG
+                ).show()
+
+                findNavController().navigate(ActionOnlyNavDirections(R.id.action_registerFragment_to_loginFragment)) //navigate auto after registeration
+            }}
+
+        return root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RegisterFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            RegisterFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    fun isValidString(str: String): Boolean{
+        return EMAIL_ADDRESS_PATTERN.matcher(str).matches()
     }
 }
