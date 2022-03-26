@@ -12,9 +12,7 @@ import kotlinx.coroutines.launch
 
 class UserRepositoryImp(var localSource: LocalSource) : UserRepository {// local
 
-
-
-    companion object {
+   /* companion object {
         private var INSTANCE: UserRepositoryImp? = null
         private var database: UserDao? = null
         fun getUserRepository(app: Application): UserRepositoryImp {
@@ -23,7 +21,7 @@ class UserRepositoryImp(var localSource: LocalSource) : UserRepository {// local
             }
             return INSTANCE as UserRepositoryImp
         }
-    }
+    }*/
 
     override fun getUserByEmail(email: String): LiveData<List<User>>? {
     return localSource.getUserByEmail(email)  //database?.getUserByEmail(email)

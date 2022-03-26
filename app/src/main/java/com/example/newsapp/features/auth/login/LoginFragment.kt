@@ -12,7 +12,10 @@ import androidx.navigation.ActionOnlyNavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.newsapp.NewsActivity
 import com.example.newsapp.R
-import com.example.newsapp.data.repo.user.UserRepositoryImp.Companion.getUserRepository
+import com.example.newsapp.data.repo.user.UserRepositoryImp
+import com.example.newsapp.data.source.local.LocalSource
+import com.example.newsapp.data.source.local.NewsDatabase
+import com.example.newsapp.data.source.local.UserDao
 import com.example.newsapp.databinding.FragmentLoginBinding
 import com.example.newsapp.features.auth.AuthModelFactory
 import com.example.newsapp.features.auth.AuthViewModel
@@ -43,7 +46,7 @@ class LoginFragment : Fragment() {
 
         viewModel = ViewModelProvider(
             this, AuthModelFactory(
-                getUserRepository(app = requireActivity().application)
+                UserRepositoryImp(LocalSource( NewsDatabase.getInstance(requireContext()).userDao()))
             )
         ).get(AuthViewModel::class.java)
 
