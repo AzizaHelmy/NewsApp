@@ -12,17 +12,6 @@ import kotlinx.coroutines.launch
 
 class UserRepositoryImp(var localSource: LocalSource) : UserRepository {// local
 
-   /* companion object {
-        private var INSTANCE: UserRepositoryImp? = null
-        private var database: UserDao? = null
-        fun getUserRepository(app: Application): UserRepositoryImp {
-            if (INSTANCE == null) {
-                database = NewsDatabase.getInstance(app).userDao()
-            }
-            return INSTANCE as UserRepositoryImp
-        }
-    }*/
-
     override fun getUserByEmail(email: String): LiveData<List<User>>? {
     return localSource.getUserByEmail(email)  //database?.getUserByEmail(email)
     }
@@ -30,4 +19,5 @@ class UserRepositoryImp(var localSource: LocalSource) : UserRepository {// local
     override fun insertUser(user: User) {
         CoroutineScope(Dispatchers.IO).launch  { localSource.insertUser(user) }
     }
+
 }

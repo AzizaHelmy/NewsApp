@@ -9,7 +9,15 @@
         android:id="@+id/homeFragment"
         android:name="com.example.newsapp.features.news.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/right_to_left_anmi"
+            app:popEnterAnim="@anim/right_to_left_anmi"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/favoritsFragment"
         android:name="com.example.newsapp.features.favorite.view.FavoritsFragment"
@@ -24,5 +32,9 @@
         android:id="@+id/detailsFragment"
         android:name="com.example.newsapp.features.news.details.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="CurrentNew"
+            app:argType="com.example.newsapp.data.entites.CashedNews" />
+    </fragment>
 </navigation>

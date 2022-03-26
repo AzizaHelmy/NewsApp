@@ -5,10 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.newsapp.data.entites.NewsModel
+import com.example.newsapp.data.entites.CashedNews
 import com.example.newsapp.data.entites.User
-
-@Database(entities = [NewsModel::class, User::class], version = 1, exportSchema = false)
+import com.example.newsapp.utils.Converter
+//,Article::class
+@Database(entities = [CashedNews::class, User::class], version = 6, exportSchema = false)
 @TypeConverters(Converter::class)
 abstract class NewsDatabase : RoomDatabase() {
 

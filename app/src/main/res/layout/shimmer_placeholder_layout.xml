@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_fav2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="7dp"
+        app:cardCornerRadius="15dp"
+        app:strokeColor="#70807F7F"
+        app:strokeWidth="1dp"
+        app:cardElevation="11dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_news_img2"
+                android:layout_width="match_parent"
+                android:layout_height="142dp"
+                android:layout_margin="7dp"
+                android:background="@color/shimmer"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:scaleType="fitCenter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_fav2"
+                android:layout_width="64dp"
+                android:layout_height="41dp"
+                android:layout_margin="13dp"
+              android:background="@color/shimmer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_news_img" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:ems="12"
+                android:background="@color/shimmer"
+                android:textStyle="bold"
+                android:fontFamily="serif"
+                android:lines="1"
+                android:textSize="21sp"
+                app:layout_constraintEnd_toStartOf="@+id/iv_fav2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_news_img2" />
+
+            <TextView
+                android:id="@+id/tv_time2"
+                android:layout_width="125dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="7dp"
+               android:background="@color/shimmer"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_published2"
+                app:layout_constraintStart_toEndOf="@id/tv_published2"
+                app:layout_constraintTop_toTopOf="@id/tv_published2" />
+
+            <TextView
+                android:id="@+id/tv_published2"
+                android:layout_width="125dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginStart="13dp"
+                android:layout_marginBottom="5dp"
+               android:background="@color/shimmer"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

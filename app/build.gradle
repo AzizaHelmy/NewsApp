@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
-//    id ("androidx.navigation.safeargs")
+    id("androidx.navigation.safeargs")
     id 'kotlin-kapt'
 }
 
@@ -15,9 +15,9 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildFeatures {
         viewBinding true
     }
@@ -68,6 +68,11 @@ dependencies {
     //shimmer rv
 //    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 //    implementation 'com.todkars:shimmer-recyclerview:0.4.1'
+
+   implementation 'com.facebook.shimmer:shimmer:0.5.0@aar'
+//    implementation "androidx.recyclerview:recyclerview:1.2.1"
+//    implementation 'com.amitshekhar.android:android-networking:1.0.2'
+//    implementation 'com.github.bumptech.glide:glide:4.13.0'
     //Coroutines Dependencies
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'

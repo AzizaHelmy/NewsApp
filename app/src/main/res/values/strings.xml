@@ -5,6 +5,9 @@
     <string name="settings">Settings</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="nothing_to_show">Nothing to Show</string>
+
     <string name="user_name">user name</string>
     <string name="password">password</string>
     <string name="login">Login</string>
@@ -19,7 +22,16 @@
     <string name="wrong_password">wrong password</string>
     <string name="registered_successfully">registered successfully</string>
     <string name="wrong_email">Wrong email</string>
+
     <string name="preference_loggin">pref_loggin</string>
     <string name="remember_me">Remember Me</string>
     <string name="logout">logout</string>
+
+    <string name="title">title_tv</string>
+    <string name="auther">auther_tv</string>
+    <string name="description">description_tv</string>
+    <string name="link">link_tv</string>
+    <string name="published">published_tv</string>
+    <string name="content">content_tv</string>
+
 </resources>
