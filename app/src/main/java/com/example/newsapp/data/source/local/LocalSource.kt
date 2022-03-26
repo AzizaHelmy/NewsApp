@@ -1,14 +1,15 @@
 package com.example.newsapp.data.source.local
 
+import androidx.lifecycle.LiveData
 import com.example.newsapp.data.entites.User
 
-class LocalSource : LocalSourceInterface {
+class LocalSource(var dao: UserDao) : LocalSourceInterface {
 
-    override fun getUserByEmail(email: String) {
-
+    override fun getUserByEmail(email: String): LiveData<List<User>>? {
+   return dao.getUserByEmail(email)
     }
 
     override fun insertUser(user: User) {
-        TODO("Not yet implemented")
+       dao.insertUser(user)
     }
 }

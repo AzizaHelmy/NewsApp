@@ -133,6 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:hint="@string/phone"
+            android:inputType="number"
             android:maxLength="32"
             android:textColorHint="#757575"
             tools:ignore="TouchTargetSizeCheck" />
