@@ -15,6 +15,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.newsapp.R
 import com.example.newsapp.data.entites.User
 import com.example.newsapp.data.repo.user.UserRepositoryImp
+import com.example.newsapp.data.source.local.LocalSource
+import com.example.newsapp.data.source.local.NewsDatabase
 import com.example.newsapp.databinding.FragmentRegisterBinding
 import com.example.newsapp.features.auth.AuthModelFactory
 import com.example.newsapp.features.auth.AuthViewModel
@@ -27,12 +29,12 @@ class RegisterFragment : Fragment() {
     private lateinit var viewModel: AuthViewModel
 
     val EMAIL_ADDRESS_PATTERN = Pattern.compile(
-        "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+        "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,32}" +  // 1 - 265
                 "\\@" +
-                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,32}" +    // 0 - 64
                 "(" +
                 "\\." +
-                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,32}" +   // 0 - 25
                 ")+"
     )
 
@@ -53,7 +55,7 @@ class RegisterFragment : Fragment() {
 
         viewModel = ViewModelProvider(
             this, AuthModelFactory(
-                UserRepositoryImp.getUserRepository(app = requireActivity().application)
+                UserRepositoryImp(localSource = LocalSource(NewsDatabase.getInstance(requireContext()).userDao()))
             )
         ).get(AuthViewModel::class.java)
 
@@ -70,36 +72,22 @@ class RegisterFragment : Fragment() {
         }
 
         registerBtn.setOnClickListener {
-            var registeration :User;
+            registerBtn.visibility = View.INVISIBLE
 
             if(userNameEdt.text.toString().trim().isNullOrEmpty() || passWordEdt.text.toString().trim().isNullOrEmpty() || passConfirmEdt.text.toString().trim().isNullOrEmpty()|| emailEdt.text.toString().trim().isNullOrEmpty()|| phoneEdt.text.toString().trim().isNullOrEmpty() )
-            { Toast.makeText(
-                context,
-                getString(R.string.try_again),
-                Toast.LENGTH_LONG
-            ).show()
-                registerBtn.visibility = View.VISIBLE
+            {
+                tryAgain( getString(R.string.try_again))
             }
             else if ( passWordEdt.text.toString().trim() != passConfirmEdt.text.toString().trim())
             {
-                Toast.makeText(
-                    context,
-                    getString(R.string.try_again),
-                    Toast.LENGTH_LONG
-                ).show()
-                registerBtn.visibility = View.VISIBLE
+               tryAgain(getString(R.string.try_again))
             }
             else if (!isValidString(emailEdt.text.toString().trim()))
             {
-                Toast.makeText(
-                    context,
-                    getString(R.string.wrong_email),
-                    Toast.LENGTH_LONG
-                ).show()
-                registerBtn.visibility = View.VISIBLE
+             tryAgain( getString(R.string.wrong_email))
             }
             else{
-            viewModel.insertUser(User(userNameEdt.text.toString().trim(), passWordEdt.text.toString().trim(),emailEdt.text.toString().trim(),phoneEdt.text.toString().trim()))
+            viewModel.insertUser(User(userNameEdt.text.toString().trim().lowercase(), passWordEdt.text.toString().trim(),emailEdt.text.toString().trim().lowercase(),phoneEdt.text.toString().trim().lowercase()))
 
                 Toast.makeText(
                     context,
@@ -115,5 +103,10 @@ class RegisterFragment : Fragment() {
 
     fun isValidString(str: String): Boolean{
         return EMAIL_ADDRESS_PATTERN.matcher(str).matches()
+    }
+
+    private fun tryAgain(message:String) {
+        Toast.makeText(context, message , Toast.LENGTH_LONG).show()
+        registerBtn.visibility = View.VISIBLE
     }
 }

@@ -23,10 +23,15 @@
     <string name="registered_successfully">registered successfully</string>
     <string name="wrong_email">Wrong email</string>
 
+    <string name="preference_loggin">pref_loggin</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="logout">logout</string>
+
     <string name="title">title_tv</string>
     <string name="auther">auther_tv</string>
     <string name="description">description_tv</string>
     <string name="link">link_tv</string>
     <string name="published">published_tv</string>
     <string name="content">content_tv</string>
+
 </resources>

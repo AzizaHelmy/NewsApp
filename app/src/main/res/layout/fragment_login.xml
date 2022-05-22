@@ -56,6 +56,15 @@
             android:minHeight="48dp" />
     </LinearLayout>
 
+    <CheckBox
+        android:id="@+id/login_checkerText_rememberMe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:text="@string/remember_me" />
+
     <Button
         android:id="@+id/login_button_login"
         android:layout_width="wrap_content"
